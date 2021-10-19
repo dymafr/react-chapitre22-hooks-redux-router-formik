@@ -1,23 +1,23 @@
-import apiFirebase, { saveTodos } from "../../../config/api.firebase";
+import apiFirebase, { saveTodos } from '../../../config/api.firebase';
 
-export const TOGGLE_EDIT_MODE = "toggle edit mode";
+export const TOGGLE_EDIT_MODE = 'toggle edit mode';
 
-export const TRY_DELETE_TODO = "try delete todo";
-export const DELETE_TODO_SUCCESS = "delete todo success";
-export const DELETE_TODO_ERROR = "delete todo error";
+export const TRY_DELETE_TODO = 'try delete todo';
+export const DELETE_TODO_SUCCESS = 'delete todo success';
+export const DELETE_TODO_ERROR = 'delete todo error';
 
-export const TRY_EDIT_TODO = "try edit todo";
-export const EDIT_TODO_SUCCESS = "edit todo success";
-export const EDIT_TODO_ERROR = "edit todo error";
+export const TRY_EDIT_TODO = 'try edit todo';
+export const EDIT_TODO_SUCCESS = 'edit todo success';
+export const EDIT_TODO_ERROR = 'edit todo error';
 
-export const TRY_ADD_TODO = "try add todo";
-export const ADD_TODO_SUCCESS = "add todo success";
-export const ADD_TODO_ERROR = "add todo error";
+export const TRY_ADD_TODO = 'try add todo';
+export const ADD_TODO_SUCCESS = 'add todo success';
+export const ADD_TODO_ERROR = 'add todo error';
 
-export const REQUEST_TODO = "request todo";
-export const FETCH_TODO = "fetch todo";
-export const FETCH_TODO_SUCCESS = "fetch todo success";
-export const FETCH_TODO_ERROR = "fetch todo error";
+export const REQUEST_TODO = 'request todo';
+export const FETCH_TODO = 'fetch todo';
+export const FETCH_TODO_SUCCESS = 'fetch todo success';
+export const FETCH_TODO_ERROR = 'fetch todo error';
 
 export const tryAddTodoAction = todo => {
   return async (dispatch, getState) => {
@@ -48,29 +48,29 @@ export const editTodoSuccessAction = (todo, index) => {
     type: EDIT_TODO_SUCCESS,
     payload: {
       todo,
-      index
-    }
+      index,
+    },
   };
 };
 
 export const editTodoErrorAction = error => {
   return {
     type: EDIT_TODO_ERROR,
-    error
+    error,
   };
 };
 
 export const addTodoSuccessAction = todo => {
   return {
     type: ADD_TODO_SUCCESS,
-    todo
+    todo,
   };
 };
 
 export const addTodoErrorAction = error => {
   return {
     type: ADD_TODO_ERROR,
-    error
+    error,
   };
 };
 
@@ -89,34 +89,34 @@ export const tryDeleteTodoAction = index => {
 export const deleteTodoSuccessAction = index => {
   return {
     type: DELETE_TODO_SUCCESS,
-    index
+    index,
   };
 };
 
 export const deleteTodoErrorAction = error => {
   return {
     type: DELETE_TODO_ERROR,
-    error
+    error,
   };
 };
 
 export const requestTodoAction = () => {
   return {
-    type: REQUEST_TODO
+    type: REQUEST_TODO,
   };
 };
 
 export const fetchTodoSuccessAction = todos => {
   return {
     type: FETCH_TODO_SUCCESS,
-    todos
+    todos: todos.map((t, i) => ({ ...t, index: i })),
   };
 };
 
 export const fetchTodoErrorAction = error => {
   return {
     type: FETCH_TODO_ERROR,
-    error
+    error,
   };
 };
 
@@ -124,7 +124,7 @@ export const fetchTodoAction = () => {
   return async dispatch => {
     dispatch(requestTodoAction());
     try {
-      const response = await apiFirebase.get("todos.json");
+      const response = await apiFirebase.get('todos.json');
       const data = response.data;
       dispatch(fetchTodoSuccessAction(data));
     } catch (e) {
@@ -135,5 +135,5 @@ export const fetchTodoAction = () => {
 
 export const toggleEditModeAction = index => ({
   type: TOGGLE_EDIT_MODE,
-  index
+  index,
 });
